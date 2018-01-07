@@ -1,0 +1,95 @@
+.profile-head{
+    height: 160px;
+    position: relative;
+    background: tomato;
+}
+.profile-detail{
+    width: 100%;
+}
+.profile-head #user-name{
+    position: absolute;
+    margin: 4em 0em 2em 5em;
+}
+p{
+    padding: 4px;
+    margin-bottom: 0;
+}
+#user-name{
+    font-weight: bold;
+    font-size: 20px;
+    position: relative;
+}
+.container{
+    background-color: white;
+    padding: 0 0 0 0;
+}
+.profile-body{
+    margin: 3em 0 0 12em;
+    height: 85vh;
+}
+#intro{
+    max-width: fit-content;
+    color:  black; font-weight: bold;
+}
+.info{
+    color: tomato;
+}
+#employment:hover .tooltiptext_employment {
+    visibility: visible;
+}
+#employment .tooltiptext_employment {
+    visibility: hidden;
+    width: fit-content;
+    background-color: whitesmoke;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+#expertise:hover .tooltiptext_expertise {
+    visibility: visible;
+}
+#expertise .tooltiptext_expertise {
+    visibility: hidden;
+    width: fit-content;
+    background-color: whitesmoke;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+
+#message{
+    max-width: fit-content;
+    color: rgb(39, 221, 33);
+    cursor: pointer;
+    margin-bottom: 2%;
+}
+@media (max-width: 623px) { 
+    .profile-body{
+        margin: 3em 0 0 1.5em;
+        height: 85vh;
+    }
+    .profile-head #user-name img{
+        width: 100px;
+        height: 100px;
+    }
+}
+@media (max-width: 346px) { 
+    .profile-head #user-name{
+        position: absolute;
+        margin: 4em 0em 2em 1em;
+    }
+    .profile-head #user-name img{
+        width: 50px;
+        height: 50px;
+    }
+}

@@ -1,0 +1,182 @@
+<app-header></app-header>
+<div class="container" >
+    <app-alert></app-alert>
+    <h3 class="text-center" style="color: tomato; margin-bottom: 2em;margin-top: 1em">Sign up</h3>
+    <form #f="ngForm" (ngSubmit)="f.form.valid && signup(f.value)" style="margin-top: 1rem;">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h4>Infomation</h4>
+                <fieldset ngModelGroup="info">
+                    <!-- <div class="form-group row"> -->
+                        <label class="col-md-5 col-form-label">Firstname
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" name="first_name" required minlength="1" maxlength="30" #firstName="ngModel" class="form-control" [(ngModel)]="user.info.first_name">
+                            <div *ngIf="f.submitted&&firstName.errors?.required" style="color:red;" class="form-control-feedback">First Name is required</div>
+                        </div>
+                    <!-- </div> -->
+                    <!-- <div class="form-group row"> -->
+                        <label class="col-md-5 col-form-label">Lastname
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <input type="text" required minlength="1" maxlength="30" class="form-control" #lastName="ngModel" name="last_name" [(ngModel)]="user.info.last_name">
+                            <div *ngIf="f.submitted&&lastName.errors?.required" style="color:red;" class="form-control-feedback">Last Name is required</div>
+                        </div>
+                    <!-- </div> -->
+                    <!-- <div class="form-group row"> -->
+                        <label class="col-md-5 col-form-label">Gender
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <select required name="gender" [(ngModel)]="user.info.gender" #ggender="ngModel" class="form-control">
+                                <option value="0">Female</option>
+                                <option value="1">Male</option>
+                                <option value="2">Other</option>
+                            </select>
+                            <div *ngIf="f.submitted&&ggender.errors?.required" style="color:red;" class="form-control-feedback">Gender is required</div>
+                        </div>
+                    <!-- </div> -->
+                    <!-- <div class="form-group row"> -->
+                        <label class="col-md-5 col-form-label">DOB
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <input min="{{minYear}}" max="{{maxYear}}" required type="date" name="dob" #ddob="ngModel" [(ngModel)]="user.info.dob" class="form-control">
+                            <div *ngIf="f.submitted&&ddob.errors?.required" style="color:red;" class="form-control-feedback">Dob is required</div>
+                            <div *ngIf="f.submitted&&ddob?.invalid&&!ddob.errors?.required" style="color:red;" class="form-control-feedback">Dob is invalid</div>
+                        </div>
+                    <!-- </div> -->
+                    <h4>Address recidence</h4>
+                    <!-- <div class="form-group row"> -->
+                        <label class="col-md-5 col-form-label">Address
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <fieldset ngModelGroup="address_residence">
+                                <div class="form-group">
+                                    <input placeholder="search for location" type="text" class="form-control" #search>
+                                </div>
+                                <agm-map [latitude]="user.address_residence.latitude" [longitude]="user.address_residence.latitude" [scrollwheel]="false" [zoom]="zoom">
+                                    <agm-marker [latitude]="user.address_residence.latitude" [longitude]="user.address_residence.longitude"></agm-marker>
+                                </agm-map>
+                            </fieldset>
+                        </div>
+                    <!-- </div> -->
+                    <!-- <div class="form-group row">
+                        <label class="col-md-5 col-form-label">Areas expertise
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <!-- [attr.selected]="areaExs?.data ? true : null" -->
+                    <!-- <select required #aareas="ngModel" name="areas_expertise" class="form-control" [(ngModel)]="user.info.areas_expertise">
+                                <option *ngFor="let e of areaExs?.data" value="{{e._id}}">{{e.name}}</option>
+                            </select>
+                            <div *ngIf="f.submitted&&aareas.errors?.required" style="color:red;" class="form-control-feedback">Areas expertise is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-5 col-form-label">Employment situation
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <select required #empl="ngModel" name="employment_sitution" class="form-control" [(ngModel)]="user.info.employment_sitution">
+                                <!-- [attr.selected]="employSt?.data ? true : null"   -->
+                    <!-- <option *ngFor="let e of employSt?.data" value="{{e._id}}">{{e.name}}</option>
+                            </select>
+                            <div *ngIf="f.submitted&&empl.errors?.required" style="color:red;" class="form-control-feedback">Employment situation is required</div>
+                        </div>
+                    </div> -->
+                </fieldset>
+                <h4>Contact</h4>
+                <fieldset ngModelGroup="contact">
+                    <!-- <div class="form-group row"> -->
+                        <label class="col-md-5 col-form-label">Email
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <input type="email" name="email" required #eemail="ngModel" [(ngModel)]="user.contact.email" class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                            <div *ngIf="f.submitted&&eemail.errors?.required" style="color:red;" class="form-control-feedback">Email is required</div>
+                            <div *ngIf="eemail.errors?.pattern" style="color:red;" class="form-control-feedback">Email is invalid</div>
+                        </div>
+                    <!-- </div> -->
+                    <!-- <div class="form-group row"> -->
+                        <label class="col-md-5 col-form-label">Telehone number
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-10">
+                            <input class="form-control" pattern="[0-9]{9,40}" type="text" required name="phone" [(ngModel)]="user.contact.phone" #pphone="ngModel">
+                            <div *ngIf="f.submitted&&pphone.errors?.required" style="color:red;" class="form-control-feedback">Telephone is required</div>
+                            <div *ngIf="!pphone.errors?.required&&pphone?.invalid" style="color:red;" class="form-control-feedback">Telephone is invalid</div>
+                        </div>
+                    <!-- </div> -->
+                    <!-- <div class="form-group row">
+                        <label class="col-md-5 col-form-label">Web page</label>
+                        <div class="col-md-10">
+                            <input type="url" name="web_page" [(ngModel)]="user.contact.web_page" class="form-control">
+                        </div>
+                    </div> -->
+                </fieldset>
+                <h4>Security</h4>
+                <!-- <div class="form-group row"> -->
+                    <label class="col-md-5 col-form-label">Password
+                        <span class="require">*</span>
+                    </label>
+                    <div class="col-md-10">
+                        <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" name="password"
+                            [(ngModel)]="user.password" class="form-control" #ppassword="ngModel">
+                        <div *ngIf="f.submitted&&ppassword.errors?.required" style="color:red;" class="form-control-feedback">Password is required</div>
+                        <div *ngIf="f.submitted&&ppassword.errors?.pattern" style="color:red;" class="form-control-feedback">Minimum eight characters, at least one letter, one number and one special character.</div>
+                    </div>
+                <!-- </div> -->
+                <!-- <div class="form-group row"> -->
+                    <label class="col-md-5 col-form-label">Reenter Password
+                        <span class="require">*</span>
+                    </label>
+                    <div class="col-md-10">
+                        <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" name="password2"
+                            [(ngModel)]="password2" class="form-control" #ppassword2="ngModel">
+                        <div *ngIf="f.submitted&&ppassword2.errors?.required" style="color:red;" class="form-control-feedback">Password is required</div>
+                        <div *ngIf="f.submitted&&!ppassword2.errors?.required&&!(password2===user.password)" style="color:red;" class="form-control-feedback">Password is not match.</div>
+                    </div>
+                <!-- </div> -->
+            </div>
+            <!-- <div class="col-md-5 offset-md-1"> -->
+            <!-- <h4>Address recidence
+                    <span class="require">*</span>
+                </h4> -->
+            <!-- <fieldset ngModelGroup="address_residence">
+                    <div class="form-group">
+                        <input  placeholder="search for location" type="text" class="form-control"
+                            #search >
+                    </div>
+                    <agm-map [latitude]="latitude" [longitude]="user.address_residence.latitude" [scrollwheel]="false" [zoom]="zoom">
+                        <agm-marker [latitude]="user.address_residence.latitude" [longitude]="user.address_residence.longitude"></agm-marker>
+                    </agm-map>
+                    <!-- <div class="form-group">
+                        <input type="text" hidden="" [(ngModel)]="user.address_residence.address" name="address" class="form-control">
+                        <input type="text" hidden="" name="latitude" [(ngModel)]="user.address_residence.latitude" class="form-control">
+                        <input type="text" hidden="" name="longitude" [(ngModel)]="user.address_residence.longitude" class="form-control">
+                    </div> -->
+
+        </div>
+        <!-- </div> -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                    />
+                    <button style="margin-top: 5%;" [disabled]="loading" class="btn btn-primary">Register</button>
+
+                </div>
+                <div class="row">
+                    <label>Already have an account? </label>
+                    <a [routerLink]="['/login']">Sign in</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<!-- <script src="//connect.facebook.net/en_US/sdk.js"></script> -->

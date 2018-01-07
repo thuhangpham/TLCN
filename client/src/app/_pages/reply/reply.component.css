@@ -1,0 +1,21 @@
+p{
+    margin-top: 0;
+    margin-bottom: 5px;;
+}
+.cursor{
+    color: royalblue;
+    cursor: pointer;
+}
+
+small {
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+.fa{
+    cursor: pointer;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+input{
+    border-radius: 10px 0 0 10px;height:28px; width: 80%;font-size: 13px;
+}

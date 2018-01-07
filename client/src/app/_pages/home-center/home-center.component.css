@@ -1,0 +1,48 @@
+*{
+}
+.event{
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.22);
+    background-color: white;
+}
+.container-event{  
+    padding: 5%;  
+}
+.container-event p{
+    line-height: 1.5;
+    color: black;
+    text-overflow: ellipsis;
+    /* display:block;
+    white-space: nowrap;
+    overflow: hidden; */
+}
+.badge{
+    background-color: #33b5e5;
+    color: white;
+}
+.organi-event{
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 15px; 
+    margin-top: 0.5em;
+}
+.tab-content label{
+    color: black;
+}
+.event .social-event-button{
+    cursor: pointer;
+    color: #00C851;
+    padding-left: 15px;
+}
+.nav li{
+    padding: 5px;
+}
+.nav li a{
+    text-decoration: none;
+}
+small{
+    margin-bottom: 0;
+}
+#share{
+    background-color: #33b5e5; 
+}

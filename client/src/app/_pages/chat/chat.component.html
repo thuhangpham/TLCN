@@ -1,0 +1,16 @@
+<div (scroll)="onScroll($event)" id="mess-frame" #list class="list" [scrollTop]="list.scrollHeight">
+  <div *ngFor="let m of messList">
+    <app-mess-item [msg]="m"></app-mess-item>
+  </div>
+</div>
+<div *ngIf="dangNhapTinNhan" style="padding-bottom: 3em;position: absolute;" class="fixed-bottom">
+  <small> Ai do dang nhap tin nhan...</small>
+</div>
+<form class="form-inline" style="position: absolute;" class="fixed-bottom">
+  <div class="input-group">
+    <input type="text" class="form-control" [(ngModel)]="mess" name="mess" (ngModelChange)="valuechange()">
+    <span class="input-group-btn">
+      <button style="background-color: tomato;" class="btn" (click)="send()" type="button">Go!</button>
+    </span>
+  </div>
+  </form>

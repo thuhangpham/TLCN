@@ -1,0 +1,40 @@
+html{
+    overflow: hidden;
+}
+#chat-frame{
+    overflow: hidden;
+    position: relative; max-height: 100vh;
+}
+#user-list{
+    overflow-y:auto; 
+    position: relative; max-height: 100vh;
+    background-color: white;
+}
+#mess-frame{
+    max-height: 80vh;
+    padding: 2% 8% 5% 8%;
+    overflow-x:hidden; 
+}
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+#chat{
+    height: 93vh;
+}
+.col{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.list{
+    margin-top: 1vh;
+    overflow-y:auto; 
+    position: relative; max-height: 80vh;
+    display: grid;
+}
+.recipient{
+   padding: 5px 0 0 5px;
+   cursor:  pointer;
+   color: tomato;
+   font-weight: bold inherit
+}

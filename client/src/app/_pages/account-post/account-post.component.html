@@ -1,0 +1,74 @@
+<div class="container">
+  <app-alert></app-alert>
+  
+  <div class="row">
+    <div class="col-md-9">
+        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+      <!-- <div *ngFor="let p of postDatas; let j = index"> -->
+      <div class="example-container mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+          <!-- Name Column -->
+          <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.info.title}} </mat-cell>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="location">
+            <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.info.address}} </mat-cell>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="tasks">
+              <mat-header-cell *matHeaderCellDef> Tasks </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.content.tasks}} </mat-cell>
+            </ng-container> -->
+        
+          <ng-container matColumnDef="start_date">
+            <mat-header-cell *matHeaderCellDef> Start date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.info.start}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="end_date">
+            <mat-header-cell *matHeaderCellDef> End date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.info.end}} </mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="apply">
+            <mat-header-cell *matHeaderCellDef> Apply </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.applies}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="list_apply">
+            <mat-header-cell *matHeaderCellDef> List apply </mat-header-cell>
+            <mat-cell (click)="viewApply(element)" *matCellDef="let element" style="cursor: pointer; color: turquoise;"> View </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="edit">
+              <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+              <mat-cell (click)="edit(element._id)"  *matCellDef="let element" style="cursor: pointer; color: turquoise;"> <mat-icon>edit</mat-icon> </mat-cell>              
+            </ng-container>
+
+            <ng-container matColumnDef="remove">
+                <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
+                <mat-cell (click)="remove(element)" *matCellDef="let element" style="text-align: center; cursor: pointer; color: red;">                    
+                  <mat-icon>remove</mat-icon>
+                 </mat-cell>              
+              </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator>
+      </div>
+      <!-- <app-account-post-item (remove)="remove($event)" [p]="p" [index]="j"></app-account-post-item> -->
+      <!-- </div> -->
+    </div>
+    <div class="col-md-3">
+      <app-account-post-item [p]="post"></app-account-post-item>
+    </div>
+    
+  </div>
+</div>

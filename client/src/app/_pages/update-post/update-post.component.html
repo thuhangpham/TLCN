@@ -1,0 +1,190 @@
+<app-header></app-header>
+<div class="">
+    <h3 class="text-center" style="color: #ff9900;margin-top: 1em">Create an event</h3>
+
+    <form #f="ngForm" (ngSubmit)="f.form.valid && submit(f.value)" style="margin-top: 1rem;">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-8">
+                <h4>Infomation</h4>
+                <small class="form-text text-muted">Information of this volunteer event.</small>
+                <fieldset ngModelGroup="info">
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">Title
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-8 col-sm-8">
+                            <input name="title" type="text" required minlength="1" maxlength="100" #ttitle="ngModel" class="form-control" [(ngModel)]="post.info.title">
+                            <div *ngIf="f.submitted&&ttitle.errors?.required" style="color:red;" class="form-control-feedback">Title is required</div>
+                            <!-- <div *ngIf="title.errors?.maxlength&&!title.errors?.required" class="form-control-feedback">First Name must less than 30 character.</div> -->
+                            <!-- <div *ngIf="!title?.valid&&f.submitted&&!title.errors?.required" class="form-control-feedback">First Name must less than 30 character.</div> -->
+                            <!-- <div class="form-control-feedback">Sorry, that username's taken. Try another?</div> -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">Description</label>
+                        <div class="col-md-8 col-sm-8">
+                            <textarea rows="4" type="text"  minlength="1" class="form-control" #ddescription="ngModel" name="desciption" [(ngModel)]="post.info.desciption"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">Start date
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-4 col-sm-8">
+                            <input min="{{minYear}}" max="{{maxYear}}" required type="date" name="start_date" #startdate="ngModel" [(ngModel)]="start_date"
+                                class="form-control">
+                            <div *ngIf="f.submitted&&startdate.errors?.required" style="color:red;" class="form-control-feedback">Start date is required</div>
+                            <div *ngIf="f.submitted&&startdate?.invalid&&!startdate.errors?.required" style="color:red;" class="form-control-feedback">Start date is invalid</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">End date
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-4 col-sm-8">
+                            <input min="{{minYear}}" max="{{maxYear}}" required type="date" name="end_date" #enddate="ngModel" [(ngModel)]="end_date"
+                                class="form-control">
+                            <div *ngIf="f.submitted&&enddate.errors?.required" style="color:red;" class="form-control-feedback">End date is required</div>
+                            <div *ngIf="f.submitted&&enddate?.invalid&&!enddate.errors?.required" style="color:red;" class="form-control-feedback">End date is invalid</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">Areas expertise
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-4 col-sm-8">
+                            <!-- [attr.selected]="areaExs?.data ? true : null" -->
+                            <select required #aareas="ngModel" name="areas_expertise" (ngModelChange)="onChangeAreasExpertise($event)" class="form-control"
+                                [(ngModel)]="post.info.areas_expertise">
+                                <option *ngFor="let e of areaExs?.data" value="{{e._id}}">{{e.name}}</option>
+                            </select>
+                            <div *ngIf="f.submitted&&aareas.errors?.required" style="color:red;" class="form-control-feedback">Areas expertise is required</div>
+                        </div>
+                        <!-- <div class="offset-md-0 col-md-4 offset-sm-4 col-sm-8">
+                            <select required #areasExpertiseDetail="ngModel" name="areas_expertise_detail" class="form-control" [(ngModel)]="post.info.areas_expertise_detail">
+                                <!-- [attr.selected]="employSt?.data ? true : null"   -->
+                                <!-- <option *ngFor="let e of areaExsDetails" value="{{e?._id}}">{{e.name}}</option>
+                            </select>
+                            <div *ngIf="f.submitted&&areasExpertiseDetail.errors?.required" style="color:red;" class="form-control-feedback">Areas experises's detail is required</div>
+                        </div>  -->
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">Volunteers needed
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-4 col-sm-8">
+                            <input type="number" pattern="[0-9]{1,5}" name="number" required #nnumber="ngModel" id="" [(ngModel)]="post.info.number"
+                                class="form-control">
+                            <div *ngIf="f.submitted&&nnumber.errors?.required" style="color:red;" class="form-control-feedback">Number of volunteers is required</div>
+                            <div *ngIf="f.submitted&&!nnumber.errors?.required&&nnumber?.invalid" style="color:red;" class="form-control-feedback">Number of volunteers is invalid</div>
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <div class="row">
+                            <label class="col-md-2 col-form-label">Address
+                                <span class="require">*</span>                                
+                            </label>
+                            <div class="offset-md-0 col-md-8 offset-sm-4 col-sm-8">
+                                <input name="addr" [(ngModel)]="post.info.address" placeholder="search for location" type="text" class="form-control"
+                                    #search >
+                                <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                                    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                                </agm-map>
+                                <div class="form-group row">
+                                    <input type="text" hidden="" class="form-control">
+                                    <input type="text" hidden="" name="latitude" [(ngModel)]="post.info.latitude" class="form-control">
+                                    <input type="text" hidden="" name="longitude" [(ngModel)]="post.info.longitude" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-8">
+                <h4>Contact
+                </h4>
+                <small class="form-text text-muted">How to volunteers contact to you?</small>
+                <fieldset ngModelGroup="contact">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-sm-4 col-form-label">Phone number
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-4 col-sm-8">
+                            <input min="0" type="number" pattern="[0-9]{9,40}" name="phone" required #pphone="ngModel" id="" [(ngModel)]="post.contact.phone"
+                                class="form-control">
+                            <div *ngIf="f.submitted&&pphone.errors?.required" style="color:red;" class="form-control-feedback">Phone number is required</div>
+                            <div *ngIf="!pphone.errors?.required&&pphone?.invalid" style="color:red;" class="form-control-feedback">Phone number more than 8 and less than 40 number.</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">Email
+                            <span class="require">*</span>
+                        </label>
+                        <div class="col-md-4 col-sm-8">
+                            <input type="email" name="email" required #eemail="ngModel" id="" [(ngModel)]="post.contact.email" class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                            <div *ngIf="f.submitted&&eemail.errors?.required" style="color:red;" class="form-control-feedback">Email is required</div>
+                            <div *ngIf="eemail.errors?.pattern" style="color:red;" class="form-control-feedback">Email is invalid</div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-8">
+                <h4>Content</h4>
+                <small class="form-text text-muted">About the tasks and objectives of this volunteer work, and what your requirements are for volunteers.
+                </small>
+                <fieldset ngModelGroup="content">
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">Tasks
+                            <span class="require">*</span>
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <textarea rows="5" type="text" required minlength="1" class="form-control" #ttasks="ngModel" name="tasks" [(ngModel)]="post.content.tasks"></textarea>
+                            <div *ngIf="f.submitted&&ttasks.errors?.required" style="color:red;" class="form-control-feedback">Tasks is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2  col-sm-4 col-form-label">Objectives
+                            <span class="require">*</span>
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <textarea rows="5" #oobjectives="ngModel" type="text" required minlength="1" class="form-control" name="objectives" [(ngModel)]="post.content.objective"></textarea>
+                            <div *ngIf="f.submitted&&oobjectives.errors?.required" style="color:red;" class="form-control-feedback">Objectives is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-12 col-sm-12 col-form-label">Requirements
+                            <span class="require">*</span>
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <textarea rows="5" type="text" required minlength="1" class="form-control" #rrequirements="ngModel" name="requirements" [(ngModel)]="post.content.requirement"></textarea>
+                            <div *ngIf="f.submitted&&rrequirements.errors?.required" style="color:red;" class="form-control-feedback">Requirements is required</div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-8">
+                <div class="form-group">
+                    <app-alert></app-alert>
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                    />
+                    <button style="margin-top: 5%" [disabled]="loading" class="btn btn-info btn-block">Update</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<!-- <script src="//connect.facebook.net/en_US/sdk.js"></script> -->

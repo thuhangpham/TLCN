@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body > .container {
+    /* font-family: Roboto, Arial, sans-serif; */
+    /* font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";     */
+     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";    
+  }
+  .fluid{
+    /* overflow: scroll; */
+    background-color: lavender;
+  }
+  a{
+    text-decoration: none;
+  }
+  button{
+    cursor:pointer;
+  }
+  a{
+    cursor:pointer;
+  }
+  .form-control{
+    line-height: 1.5;
+  }
+  *{
+    line-height: 1.5;
+  }
+  /* input{
+    font-size: 13px;
+  }
+  label{
+    font-size: 13px;
+  } */
+  small{
+    margin-bottom: 1em;
+  }
+  

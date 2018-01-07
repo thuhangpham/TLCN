@@ -1,0 +1,63 @@
+<app-header></app-header>
+<div>
+ 
+  <h3 class="text-center" style="color: #ff9900; margin-bottom: 2em;margin-top: 1em">Forgot password</h3>
+  <div class="card">
+      <app-alert></app-alert>
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+    <!-- <div class="col-md-7">
+    </div> -->
+    
+    <div *ngIf="!isReset">
+      <form #f="ngForm">
+        <div class="form-field">
+          <!-- <label>Email:</label> -->
+          <mat-form-field class="">
+            <input matInput type="email" placeholder="E-mail" name="email" required #eemail="ngModel" id="" [(ngModel)]="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          </mat-form-field>
+          <div *ngIf="f.submitted&&eemail.errors?.required">
+            <small class="form-text text-muted">Email is required</small>
+          </div>
+          <div *ngIf="eemail.errors?.pattern">
+            <small class="form-text text-muted">Email is invalid</small>
+          </div>
+          <div *ngIf="isConfirm">
+            <mat-form-field>
+              <input matInput required type="number" #p="ngModel" placeholder="Code" name="code" pattern="[0-9]{6,6}" [(ngModel)]="code">
+            </mat-form-field>
+            <div *ngIf="f.submitted&&p.errors?.required">
+              <small class="form-text text-muted">Code is required</small>
+            </div>
+            <div *ngIf="p.errors?.pattern">
+              <small class="form-text text-muted">Code has 6 digits.</small>
+            </div>
+          </div>
+          <button *ngIf="isConfirm" (click)="confirm()" [disabled]="loading" style="margin-top: 1em" class="btn btn-block btn-info">Confirm</button>
+          <button (click)="send()" *ngIf="!isConfirm" [disabled]="loading||!f.form.valid||!f.value" style="margin-top: 1em" class="btn btn-block btn-info">Send</button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="isReset">
+      <form #frm="ngForm">
+        <div class="form-field">
+          <!-- <label>Email:</label> -->
+          <mat-form-field class="">
+            <input matInput required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" name="password"
+              id="" [(ngModel)]="password1" #ppassword="ngModel" placeholder="New password">
+          </mat-form-field>
+          <!-- <div *ngIf="frm.submitted&&ppassword.errors?.required" style="color:red;" class="form-control-feedback">Password is required</div> -->
+          <div *ngIf="ppassword.errors?.pattern" style="color:red;" class="form-control-feedback">Minimum eight characters, at least one letter, one number and one special character.</div>
+          <mat-form-field>
+            <input matInput placeholder="Re-enter Password" required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
+              name="password2" id="" [(ngModel)]="password2" #ppassword2="ngModel">
+          </mat-form-field>
+          <!-- <div *ngIf="frm.submitted&&ppassword2.errors?.required" style="color:red;" class="form-control-feedback">Password is required</div> -->
+          <div *ngIf="!ppassword2.errors?.required&&!(password2===password1)" style="color:red;" class="form-control-feedback">Password is not match.</div>
+        </div>
+
+        <button (click)="resetPass()" style="margin-top: 1em" [disabled]="loading||!frm.form.valid||!frm.value" class="btn btn-block btn-info">Reset</button>
+      </form>
+    </div>
+  </div>
+
+</div>

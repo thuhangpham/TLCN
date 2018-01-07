@@ -1,0 +1,79 @@
+<app-header></app-header>
+<div>
+  <app-alert></app-alert>
+  <h3 class="text-center" style="color: tomato; margin-bottom: 2em;margin-top: 1em">Log in</h3>
+  <div class="card">
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+    <!-- <div class="col-md-7">
+    </div> -->
+    <div *ngIf="!isLoginFB">
+      <form #f="ngForm" (submit)="login(f.form.valid&&f.value)">
+        <div class="form-field">
+          <!-- <label>Email:</label> -->
+          <mat-form-field class="">
+            <input matInput type="email" placeholder="E-mail" name="email" required #eemail="ngModel" id="" [(ngModel)]="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          </mat-form-field>
+          <div *ngIf="f.submitted&&eemail.errors?.required">
+            <small class="form-text text-muted">Email is required</small>
+          </div>
+          <div *ngIf="eemail.errors?.pattern">
+            <small class="form-text text-muted">Email is invalid</small>
+          </div>
+          <mat-form-field>
+            <!-- <label>Password:</label> -->
+            <input matInput required type="password" #p="ngModel" placeholder="Password" name="password" [(ngModel)]="password">
+          </mat-form-field>
+          <div *ngIf="f.submitted&&p.errors?.required">
+            <small class="form-text text-muted">Password is required</small>
+          </div>
+        </div>
+
+        <button style="margin-top: 1em" [disabled]="loading" [disabled]="isLoginFB" class="btn btn-block btn-info">Log in</button>
+      </form>
+      <!-- <a href="#">Forgot your password? </a> -->
+      <button type="" style="margin-top: 1em" class="btn btn-md btn-block" [routerLink]="['/signup']" [disabled]="isLoginFB">Create an account!</button>
+      <label style="width: 100%; padding: 1em ;text-align: center; color: black; font-weight: bold">Or</label>
+
+      <button [disabled]="isLoginFB" style="color: white;" (click)="loginWithFacebook()" class="btn btn-block btn-primary">
+        <span class="fa fa-facebook"></span> | Login with Facebook</button>
+      <label [routerLink]="['/forgot_pass']" style="width: 100%; padding: 1em ;text-align: center; color: teal; cursor: pointer">Forgot your password?</label>
+
+    </div>
+    <div *ngIf="isLoginFB">
+      <label class="form-text" style="color: teal; font-weight: bold;">Please enter new password for first time login!</label>
+      <form #frm="ngForm" (submit)="loginFB(frm.form.valid&&frm.value)">
+        <div class="form-field">
+          <div *ngIf="isNotEmail">
+            <mat-form-field class="">
+              <input matInput type="email" placeholder="E-mail" name="email" required #eeemail="ngModel" id="" [(ngModel)]="emailFB" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+            </mat-form-field>
+            <div *ngIf="f.submitted&&eeemail.errors?.required">
+              <small class="form-text text-muted">Email is required</small>
+            </div>
+            <div *ngIf="eeemail.errors?.pattern">
+              <small class="form-text text-muted">Email is invalid</small>
+            </div>
+          </div>
+
+          <mat-form-field class="">
+            <input matInput required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" name="password"
+              id="" [(ngModel)]="password1" #ppassword="ngModel" placeholder="New password">
+          </mat-form-field>
+          <!-- <div *ngIf="frm.submitted&&ppassword.errors?.required" style="color:red;" class="form-control-feedback">Password is required</div> -->
+          <div *ngIf="ppassword.errors?.pattern" style="color:red;" class="form-control-feedback">Minimum eight characters, at least one letter, one number and one special character.</div>
+          <mat-form-field>
+            <input matInput placeholder="Re-enter Password" required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
+              name="password2" id="" [(ngModel)]="password2" #ppassword2="ngModel">
+          </mat-form-field>
+          <!-- <div *ngIf="frm.submitted&&ppassword2.errors?.required" style="color:red;" class="form-control-feedback">Password is required</div> -->
+          <div *ngIf="!ppassword2.errors?.required&&!(password2===password1)" style="color:red;" class="form-control-feedback">Password is not match.</div>
+        </div>
+
+        <button type="submit" style="margin-top: 1em" [disabled]="loading" class="btn btn-block btn-info">Log in</button>
+      </form>
+    </div>
+    <!-- <div  (click)="loginWithFacebook()"  class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="false" data-use-continue-as="false"></div> -->
+    <div *ngIf="!isLoginFB" class="fb-login-button" data-scope="email" data-show-faces="true" data-width="200" data-max-rows="1">Start w/ Facebook</div>
+  </div>
+
+</div>

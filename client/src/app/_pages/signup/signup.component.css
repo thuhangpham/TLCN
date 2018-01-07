@@ -1,0 +1,11 @@
+agm-map {
+    height: 300px;
+  }
+  input{
+    line-height: 20px;
+  }
+  
+  .require{
+    color: red;
+  }
+.container{}

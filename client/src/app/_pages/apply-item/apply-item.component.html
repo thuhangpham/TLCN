@@ -1,0 +1,28 @@
+<div>
+  <div class="card" style="margin-bottom: 2vh;">
+    <div  [routerLink]="['/post_detail', p._id]" style="cursor: pointer;" class="row">
+      <label style="font-weight: bold; font-size: 18px; cursor: pointer;">{{p.info.title}}</label>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="col-md-12  col-sm-12" class="text-primary">{{p.info.address}}</p>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p>Start date: {{startDate}}</p>
+        </div>
+        <div class="col-md-6">
+          <p>End date: {{endDate}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- <button (click)="detail()" class="btn btn-sm btn-success" style="margin-right: 5px;">Detail</button> -->
+      <button (click)="remove()" class="btn btn-sm btn-danger">Remove</button>
+    </div>
+  </div>
+</div>

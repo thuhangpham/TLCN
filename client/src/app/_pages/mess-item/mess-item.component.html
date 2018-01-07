@@ -1,0 +1,10 @@
+<div style="padding: 5px;">
+  <form *ngIf="!isMe" class="form-inline">
+    <img class="rounded-circle img-fluid" alt="#" width="30" height="30" src={{msg.author.image}}>
+    <div class="mes" [ngClass]="{right:isMe}">{{msg.body}}</div>
+  </form>
+  <form style="float: right" *ngIf="isMe" class="form-inline">
+    <div style="background-color: plum" class="mes" >{{msg.body}}</div>
+    <img style="padding-left: 5px;" class="rounded-circle img-fluid" alt="#" width="30" height="30" src={{msg.author.image}}>
+  </form>
+</div>

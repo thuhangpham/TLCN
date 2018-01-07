@@ -1,0 +1,83 @@
+agm-map {
+    height: 250px;
+  }
+.places input{
+    height: 25px;
+}
+
+
+.home{
+    /* padding-left: 1%;
+    padding-right: 1%; */
+ 
+}
+/* .column-left {
+    float: left;
+    width: 20%;
+    padding: 5px;
+    line-height: 0.9;
+} */
+.row-custom{
+    display: grid;
+}
+.column-right {
+    /* display: none;
+    float: left;
+    width: 20%;
+    padding: 15px;
+    background-color: yellow; */
+}
+.column-center {
+    margin-bottom: 10em;
+    /* width: 60%; */
+    /* padding-top: 5px;
+    padding-left: 8%;
+    padding-right: 8%; */
+}
+.custom-row:after {
+    /* content: "";
+    display: table;
+    clear: both; */
+}
+/* 
+ @media (max-width:900px) {
+    .column-left {
+        width: 30%;
+    }
+    .column-center {
+        width: 70%;
+    }
+    .column-right {
+        display: none;
+    }
+}
+@media (max-width:600px) {
+    .column-left {
+       display: none;
+    }
+    .column-center {
+        width: 100%;
+    }
+    .column-right {
+        display: none;
+    }
+}  */
+@media (max-width: 767px) { 
+    #column-left ul li{
+       display: inline;
+       padding-right: 1em;
+    }
+    #column-left ul{
+        text-align: center;
+        display: flex;
+    }
+    #column-right {
+        display: none;
+    }
+}
+li{
+    display: block;
+}
+.col-md-7{
+    padding-bottom: 25vh;
+}

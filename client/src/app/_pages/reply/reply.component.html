@@ -1,0 +1,31 @@
+<div class="" (mouseenter)="onHovering($event)" (mouseleave)="onUnovering($event)">
+  <form class="form-inline">
+    <img class="rounded-circle img-fluid" alt="" width="20" src={{reply.owner.image}}>
+    <p [routerLink]="['/user_profile',reply.owner._id]" style="padding-left: 5px; padding-right: 5px;" class="cursor">{{reply.owner.info.first_name}} {{reply.owner.info.last_name}} </p>
+    <p  *ngIf="!isEditComment"  style="margin-left: 5px;">{{reply.content}}</p>
+    <form *ngIf="isEditComment" #f="ngForm" class="form-inline" style="margin-left: 35px;">
+      <img *ngIf="isAdding" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">
+      <input (click)="change()" [(ngModel)]="editCmtModel" placeholder="Comment..." class="form-control" type="text" name="replyV" id="">
+      <button style="border-radius: 0 10px 10px 0;" (click)="editReplyExcute()" class="btn btn-sm btn-default">Comment</button>
+    </form>
+  </form>
+  <form style="margin-left: 25px;" class="form-inline">
+    <small (click)="reply()" class="cursor" style="margin-right: 5px;"></small>
+    <small class="">{{create_at}}</small>
+    <div *ngIf="isShowUpdate">
+      <i (click)="editReply()" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      <i (click)="deleteReply()" class="fa fa-trash-o" aria-hidden="true"></i>
+    </div>
+  </form>
+
+  <!-- <div *ngIf="isReply" class="row">
+      <div class="col-md-8 col-sm-8 col-xs-8">
+        <input (click)="change()" name="replyVal" [(ngModel)]="replyVal" placeholder="Reply..." style="height:28px; font-size: 13px;"
+          class="form-control" type="text" name="" id="">
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-4">
+        <button (click)="submitReply()" class="btn btn-sm">Reply</button>
+      </div>
+    </div> -->
+
+</div>

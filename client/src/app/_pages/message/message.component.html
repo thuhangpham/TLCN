@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="">
+  <div class="row" id="chat">
+    <div class="col col-md-3" id="user-list">
+      <img *ngIf="loadingUser" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+      />
+      <div style="overflow-y:auto !important;
+        height: 100%;">
+        <div *ngFor="let u of userList">
+          <app-item-history  (click)="changeFr(u.user, u.conversation)" [routerLink]="['/message',{id:u.user._id}]" [id]="id" [user]="u"></app-item-history>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-md-9" id="chat-frame">
+      <div class="recipient">
+        <p [routerLink]="['/user_profile',recipient._id]"><span>
+          <img src={{recipient.image}} width="20" height="20" alt=""></span> {{recipient.info.first_name}} {{recipient.info.last_name}}</p>
+      </div>
+      <hr>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+      />
+      <div *ngIf="loadMore" style="padding-top: 3em;position: absolute;" class="fixed-bottom">
+        <small> Dang tai tin nhan...</small>
+      </div>
+      <div (scroll)="onScroll($event)" id="mess-frame" #list class="list" [scrollTop]="list.scrollHeight">
+        <div *ngFor="let m of messList">
+          <app-mess-item [msg]="m"></app-mess-item>
+        </div>
+      </div>
+      <div *ngIf="dangNhapTinNhan" style="padding-bottom: 3em;position: absolute;" class="fixed-bottom">
+        <small> Ai do dang nhap tin nhan...</small>
+      </div>
+      <form class="form-inline" style="position: absolute;" class="fixed-bottom">
+        <div class="input-group">
+          <input (keydown)="keyDownFunction($event)" type="text" class="form-control" [(ngModel)]="mess" name="mess" (ngModelChange)="valuechange()">
+          <span class="input-group-btn">
+            <button [disabled]="loading" style="background-color: tomato;" class="btn" (click)="send()" type="button">Go!</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<app-header></app-header>
+<div >
+  <div>
+    <div  style="padding-top: 2%;" class="row">
+      <ul class="profile-setting" *ngFor="let tab of tabs">
+        <li [ngClass]="tab.active?'active':''">
+          <a (click)="tabClick(tab)" routerLink={{tab.link}}>{{tab.title}}</a>
+        </li>
+      </ul>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

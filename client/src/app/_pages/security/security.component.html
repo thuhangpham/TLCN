@@ -1,0 +1,29 @@
+<div class="col-xs-10 col-sm-7 col-md-5">
+  <form #f="ngForm" (submit)="changePass(f.form.valid&&f.value)"> 
+  <h6>Change Password <span class="extra-title muted" style="margin-top: 1em"></span></h6>
+    <hr>
+    <div class="form-group">
+      <label >Old password:</label>
+      <input #ppassword="ngModel"  required type="password" class="form-control" name="password" id="password"  [(ngModel)]="password" placeholder="Enter old password" required>
+      <div *ngIf="f.submitted&&ppassword.errors?.required" style="color:red;" class="form-control-feedback">Old password is required</div>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1"> New Password:</label>
+      <input pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" type="password" class="form-control" name="password1" id="password1" [(ngModel)]= "password1" placeholder=" Enter new password"
+      #ppassword1="ngModel" required>
+      <div *ngIf="f.submitted&&ppassword1.errors?.required" style="color:red;" class="form-control-feedback">New password is required</div>
+      <div *ngIf="f.submitted&&ppassword1.errors?.pattern" style="color:red;" class="form-control-feedback">Minimum eight characters, at least one letter, one number and one special character.</div>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1"> confirm Password:</label>
+      <input #ppassword2="ngModel"  pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"  type="password" class="form-control" name="password2" id="password2" [(ngModel)]="password2" placeholder=" Enter confirm password" required >
+      <div *ngIf="f.submitted&&ppassword2.errors?.required" style="color:red;" class="form-control-feedback">Confirm password is required</div>
+      <div *ngIf="f.submitted&&!ppassword2.errors?.required&&!(password2===password1)" style="color:red;" class="form-control-feedback">Password is not match.</div>
+    </div>
+    <app-alert></app-alert>
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+    />
+    <button [disabled]="loading"  type="submit" class="btn btn-primary">Update Password</button>
+  </form>
+  </div>
+  

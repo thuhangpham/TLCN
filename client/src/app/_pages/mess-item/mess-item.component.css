@@ -1,0 +1,14 @@
+.mes{
+    background: gainsboro; padding: 5px;  margin-left: 0.5em;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 17px;
+    font-size: 18px;
+    margin-right: 0px;
+    max-width: 85vh;
+    font-size: 16px;
+}
+.mes.right{
+    margin-left: 30px;
+    display: flex;
+}

@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="container">
+  <div class="profile-head">
+    <p id="user-name">
+      <span> <img class="rounded-circle img-fluid" alt="#" width="100" height="100" src={{user.image}} alt=""></span> {{user.info.first_name}}
+      {{user.info.last_name}}
+    </p>
+  </div>
+  <div class="profile-body">
+      <p  id="message" [routerLink]="['/message',{id:user._id}]"><i class="fa fa-envelope-o" aria-hidden="true"></i>  Message</p>
+       <blockquote style="font-style:  italic" id="intro">{{user.info.intro}}</blockquote>
+      <p id="employment" class="info" *ngIf="isEmpl"><i class="fa fa-briefcase" aria-hidden="true"></i>  {{user.info.employment_sitution.name}}
+        <span class="tooltiptext_employment">Employment stution</span>
+      </p>
+      <p id="expertise" class="info" *ngIf="isEmpl"><i class="fa fa-cogs" aria-hidden="true"></i>  {{user.info.areas_expertise.name}}
+        <span class="tooltiptext_expertise">Areas expertise</span>
+      </p>
+
+      <p id="count-post"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  {{postCount}} posts</p>
+      <p><i class="fa fa-envelope" aria-hidden="true"></i>  {{user.contact.email}}</p>
+      <p><i class="fa fa-birthday-cake" aria-hidden="true">  {{dob}}</i></p>
+      <p><i class="fa fa-venus-mars" aria-hidden="true"></i>  {{user.info.gender}}</p>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.example-container {
+    min-width: 350px;
+    text-align: center;
+  }
+.mat-header-row{
+    background-color: #32383e;
+  }
+.mat-header-cell{
+    color: white;
+}
+.mat-cell{
+    max-height: 30px;
+}
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+.row{
+    padding-top: 2%;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+  

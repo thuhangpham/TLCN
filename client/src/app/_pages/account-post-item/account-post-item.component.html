@@ -1,0 +1,6 @@
+<div *ngFor="let e of p?.apply; let j = index">
+    <form>
+            <label [routerLink]="['/user_profile', e._id]" class="username">{{j}}. {{ e.info.first_name }} {{e.info.last_name }}</label>
+    </form>
+
+</div>

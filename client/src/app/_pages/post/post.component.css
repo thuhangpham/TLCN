@@ -1,0 +1,16 @@
+agm-map {
+    height: 300px;
+  }
+  input{
+    line-height: 20px;
+  }
+  .col-form-label {
+    padding-top: calc(.375rem + 1px);
+    padding-bottom: calc(.375rem + 1px);
+    margin-bottom: 0;
+    line-height: 0.7;
+  }
+
+  .require{
+    color: red;
+  }
