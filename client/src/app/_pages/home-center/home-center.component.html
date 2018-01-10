@@ -11,7 +11,7 @@
         </div>
         <div>
           <button (click)="share()" type="button" class="btn btn-default btn-sm" id="share">Share</button>
-          <button [ngStyle]="{'background-color': isApply? 'salmon' : 'yellowgreen'}" (click)="applySubmit()" type="button" class="btn btn-default btn-sm"
+          <button [disabled]="excute" [ngStyle]="{'background-color': isApply? 'salmon' : 'yellowgreen'}" (click)="applySubmit()" type="button" class="btn btn-default btn-sm"
             id="apply">{{txtApply}}
             <span class="badge">{{apply}}</span>
             <!-- [ngStyle]="{'background-color': isApply? 'green' : 'gray'}" -->

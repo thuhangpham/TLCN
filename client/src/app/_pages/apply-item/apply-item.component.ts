@@ -18,6 +18,7 @@ export class ApplyItemComponent implements OnInit {
   public startDate: any;
   public endDate: any;
   private currUser: any;
+  click: any = false;
 
   constructor(
     private verifyService: VerifyService,
@@ -42,20 +43,26 @@ export class ApplyItemComponent implements OnInit {
   }
   remove() {
     this.currUser = JSON.parse(localStorage.getItem('currentUser')).user;
-    if (!this.currUser)
+    if (!this.currUser) {
+      window.alert('!expire session!');
       return;
+    }
+    this.click = true;
     let data = {
       user: this.currUser._id,
       _id: this.p._id
     };
-    this.postService.unApply(data).subscribe(rs => {
-      if (JSON.parse(JSON.parse(JSON.stringify(rs))._body).result == 1) {
+    this.postService.unApply(data).then(rs => {
+      // console.log(rs);
+      if (rs.result == 1) {
+        // console.log('removed');
         this.removed.emit({ removed: 1, _id: this.p._id, index: this.index });
-      } else this.alertService.error('Error when un apply this post!');
-
-    }, err => {
+      } else this.alertService.error(rs.msg || 'Error while un apply this post!');
+    }).catch(err => {
       if (err)
-        this.alertService.error('Error when un apply this post!');
+        this.alertService.error('Error while un apply this post!');
+
+      this.click = false;
     });
   }
 

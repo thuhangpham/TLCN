@@ -5,6 +5,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { AppMaterialModule } from './app.material';
+import {ToasterModule} from 'angular2-toaster';
 import {
   FormsModule, ReactiveFormsModule
 } from '@angular/forms';
@@ -33,6 +34,7 @@ import { CommentSocketService } from './_socket/comment-socket.service';
 import { CommentService } from './_services/comment.service';
 import { MessageService } from './_services/message.service';
 import { ClickEventService } from './_services/click-event.service';
+import { ListenerService } from './_services/listener.service';
 //
 // component
 
@@ -121,6 +123,7 @@ import { ChatComponent } from './_pages/chat/chat.component';
       apiKey: 'AIzaSyDY8UvTl6TiF0W_NB7ycIj-feAfVbmftOs',
       libraries: ['places']
     }),
+    ToasterModule
   ],
   providers: [
     AuthGuard,
@@ -152,7 +155,8 @@ import { ChatComponent } from './_pages/chat/chat.component';
     MessageService,
     MessSocketService,
     ChatComponent,
-    ClickEventService
+    ClickEventService,
+    ListenerService
     ],
   bootstrap: [AppComponent]
 })

@@ -83,10 +83,16 @@ export class PostService {
     return this.http.post(`${this.apiUrl}/add_reply`, post);
   }
   addApply(post){
-    return this.http.post(`${this.apiUrl}/apply`, post);
+    return this.http.post(`${this.apiUrl}/apply`, post)
+    .toPromise()
+    .catch(this.handleError)
+    .then(this.extracData);
   }
   unApply(post){
-    return this.http.post(`${this.apiUrl}/un_apply`, post);
+    return this.http.post(`${this.apiUrl}/un_apply`, post)
+    .toPromise()
+    .catch(this.handleError)
+    .then(this.extracData);
   }
   countCommentByPostId(post_id: String, skip: Number): Promise<any>{
     console.log(post_id);
@@ -95,6 +101,12 @@ export class PostService {
         "post_id": post_id
     };
     return this.http.post(`${this.apiUrl}/count_comment_post_id`, data)
+    .toPromise()
+    .then(this.extracData)
+    .catch(this.handleError);
+  }
+  closePost(id, data){
+    return this.http.put(`${this.apiUrl}/close_post/${id}`, {data: data})
     .toPromise()
     .then(this.extracData)
     .catch(this.handleError);

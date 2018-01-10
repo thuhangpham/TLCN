@@ -10,11 +10,16 @@ import { MessSocketService } from '../../_socket/mess-socket.service';
 })
 export class ChatComponent implements OnInit {
   dangNhapTinNhan: boolean = false;
-  messList: MessageData[] = new Array();
+  _id: any;
   // userList: Users[] = new Array();
-  constructor() { }
+  constructor(
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.activatedRoute.data.subscribe(data=>{
+      console.log('router '+data);
+    })
   }
 
 }

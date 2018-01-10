@@ -53,7 +53,7 @@ export class ReplyComponent implements OnInit {
   subReply() {
     if (!this.isReply) {
       this.isReply = true;
-      console.log('ad reply click');
+      // // console.log('ad reply click');
       // this.outReply.emit({"click":true});
     }
     else this.isReply = false;
@@ -85,7 +85,7 @@ export class ReplyComponent implements OnInit {
   editReplyExcute() {
     if (this.editCmtModel.trim().length == 0)
       return;
-    console.log('edit reply');
+    // // console.log('edit reply');
     this.reply.content = this.editCmtModel;
     this.editCmt.emit({ 'index': this.index + '', '_id': this.reply._id, 'reply': this.reply });
     this._addReplyService.updatedListener().subscribe(_id => {
@@ -115,7 +115,7 @@ export class ReplyComponent implements OnInit {
     //this.editCmt.emit({'index': this.index+'','_id': this.comment._id, 'comment':this.comment});
   }
   deleteReply() {
-    console.log('item-cmment: ' + this.index);
+    // // console.log('item-cmment: ' + this.index);
     this.deleteCmt.emit({ 'index': this.index + '', '_id': this.reply._id });
   }
 }

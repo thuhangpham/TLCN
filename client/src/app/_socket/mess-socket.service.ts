@@ -35,6 +35,20 @@ export class MessSocketService {
     });
     return observable;
   }
+  aiDoGuiTinNhan(data){
+    this.socket.emit('ai-do-gui-tin-nhan',data);
+  }
+  coTinNhan() {
+    let observable = new Observable(observer => {
+      this.socket.on('co-tin-nhan', (data) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
   dangNhapTinNhan() {
     let observable = new Observable(observer => {
       this.socket.on('ai-do-dang-nhap-tin-nhan', (data) => {

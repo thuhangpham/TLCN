@@ -6,6 +6,8 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class AddReplyListenerService {
   private _subject = new Subject<any>();
+  private _subjectUpdate = new Subject<any>();
+  
   constructor() { }
 
   newReply(_id: String){
@@ -15,10 +17,11 @@ export class AddReplyListenerService {
     return this._subject.asObservable();
   }
   updated(_id){
-   this._subject.next(_id);
+   this._subjectUpdate.next(_id);
   }
   updatedListener(): Observable<any>{
-    return this._subject.asObservable();
+    return this._subjectUpdate.asObservable();
   }
 
 }
+

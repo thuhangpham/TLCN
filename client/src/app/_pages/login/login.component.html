@@ -31,10 +31,10 @@
         <button style="margin-top: 1em" [disabled]="loading" [disabled]="isLoginFB" class="btn btn-block btn-info">Log in</button>
       </form>
       <!-- <a href="#">Forgot your password? </a> -->
-      <button type="" style="margin-top: 1em" class="btn btn-md btn-block" [routerLink]="['/signup']" [disabled]="isLoginFB">Create an account!</button>
+      <button [disabled]="loading" type="" style="margin-top: 1em" class="btn btn-md btn-block" [routerLink]="['/signup']">Create an account!</button>
       <label style="width: 100%; padding: 1em ;text-align: center; color: black; font-weight: bold">Or</label>
 
-      <button [disabled]="isLoginFB" style="color: white;" (click)="loginWithFacebook()" class="btn btn-block btn-primary">
+      <button [disabled]="loading" style="color: white;" (click)="loginWithFacebook()" class="btn btn-block btn-primary">
         <span class="fa fa-facebook"></span> | Login with Facebook</button>
       <label [routerLink]="['/forgot_pass']" style="width: 100%; padding: 1em ;text-align: center; color: teal; cursor: pointer">Forgot your password?</label>
 

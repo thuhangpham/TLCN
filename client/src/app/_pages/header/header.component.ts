@@ -5,6 +5,7 @@ import { VerifyService } from '../../_services/verify.service';
 import { AlertService } from '../../_services/alert.service';
 import { DropdownDirective } from '../../_directives/drobdown/dropdown.directive';
 import { Router } from '@angular/router';
+import { ListenerService } from '../../_services/listener.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,26 +18,30 @@ export class HeaderComponent {
   image = '';
   username = '';
   currUser:Users = new Users();
-  constructor(private route: Router, private alert: AlertService,
-    private verifyService: VerifyService) {
+  constructor(private route: Router, 
+    private alert: AlertService,
+    private verifyService: VerifyService,
+    private listenerService: ListenerService) {
 
     verifyService.verify().then((res) => {
       if (res.result === 1) {
         this.isLogin = true;
         this.currUser = JSON.parse(localStorage.getItem('currentUser')).user;
+        this.listenerService.event(this.currUser._id);
       } else {
       }
       // }else alert.error('');
     }).catch(err => { Promise.reject(err||'error') });
-
+    
     if (window.location.pathname === '/login' || this.route.url === '/login')
       this.isRouteLogin = true;
     if (window.location.pathname === '/signup' || this.route.url === '/signup')
       this.isRouteSignup = true;
+      
     console.log(window.location.pathname);
     console.log('this.route.url ' + this.route.url);
   }
-  logout() {
+  logout() {    
     localStorage.removeItem('currentUser');
     this.route.navigate(['/login']);
   }

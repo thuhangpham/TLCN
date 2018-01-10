@@ -9,6 +9,9 @@ body > .container {
     /* overflow: scroll; */
     background-color: lavender;
   }
+  *{
+    font-size: 15px;
+  }
   a{
     text-decoration: none;
   }

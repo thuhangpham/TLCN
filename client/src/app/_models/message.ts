@@ -1,4 +1,4 @@
-import { Users } from './index';
+import { Users, UserData } from './users';
 export class Message {
     conversationId: String;
     body: String;
@@ -13,6 +13,7 @@ export class MessageData {
     author: Users = new Users();
     createdAt: Date;
     updatedAt: Date;
+    receiver: Users = new Users();
     constructor() { }
 }
 

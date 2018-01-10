@@ -22,7 +22,7 @@
 
     <div class="row">
       <!-- <button (click)="detail()" class="btn btn-sm btn-success" style="margin-right: 5px;">Detail</button> -->
-      <button (click)="remove()" class="btn btn-sm btn-danger">Remove</button>
+      <button [disabled]="click" (click)="remove()" class="btn btn-sm btn-danger">Remove</button>
     </div>
   </div>
 </div>

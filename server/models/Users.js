@@ -48,7 +48,7 @@ var userSchema = new schema({
     },
     password: { type: String, trim: true },
     image: { type: String },
-    apply: [{ type: objectId, ref: 'post' }],
+    apply: [{ type: objectId, ref: 'post'}],
     provider: String,
     id: String
 }

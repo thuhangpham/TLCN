@@ -17,7 +17,8 @@ var postSchema = new schema({
         latitude: String,
         longitude: String,
         areas_expertise: { type: objectId, ref: 'areas_expertise' },
-        areas_expertise_detail: { type: objectId, ref: 'areas_expertise' }
+        areas_expertise_detail: { type: objectId, ref: 'areas_expertise' },
+        close_post: { type: String }
     },
     content:
     {
@@ -31,7 +32,6 @@ var postSchema = new schema({
         phone: String,
         email: String
     },
-    comments: [comment.schema],
     apply: [{ type: objectId, ref: 'users' }]
 }, { timestamps: true} );
 

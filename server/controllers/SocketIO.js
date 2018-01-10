@@ -12,10 +12,15 @@ exports = module.exports = function (io) {
             io.to(data).emit('ai-do-khong-nhap-tin-nhan', data);
             // io.emit('ai-do-khong-nhap-tin-nhan', data);
         });
+        // gui rieng
         socket.on('toi-gui-tin-nhan', (data) => {
             console.log(JSON.stringify(data.conversationId));
             io.to(data.conversationId).emit('tin-nhan-moi', data);
-            // io.emit('tin-nhan-moi', data);
+        });
+        // gui cho user_id
+        socket.on('ai-do-gui-tin-nhan', (data) => {
+            console.log('ai-do-gui-tin-nhan'+JSON.stringify(data.receiver._id));
+            io.to(data.receiver._id).emit('co-tin-nhan', data);
         });
         socket.on('toi-xoa-tin-nhan', (data) => {
             io.to(data.conversationId).emit('xoa-tin-nhan', data);

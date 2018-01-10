@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
 export class AccountPostComponent implements OnInit {
   private currUser: any;
   public postDatas: PostData[] = [];
-  public displayedColumns = ['title', 'location', 'start_date', 'end_date', 'apply', 'list_apply', 'edit', 'remove'];
+  // public displayedColumns = ['title', 'location', 'start_date', 'end_date', 'apply', 'list_apply', 'edit', 'remove'];
+  public displayedColumns = ['title', 'location','apply', 'list_apply', 'edit', 'remove', 'status']; 
   public dataSource: any;
   public post: PostData = new PostData();
   loading: any = false;
@@ -94,6 +95,28 @@ export class AccountPostComponent implements OnInit {
 
         }
       });
+  }
+  close(e: PostData){
+    console.log(e)
+    this.loading = true;
+    let data ='0';
+    if(e.info.close_post != '1')
+      data = '1';
+      console.log(data);
+    this.postService.closePost(e._id,data).catch(err=>{
+      console.log(err);
+      this.loading = false;
+    })
+    .then(dt=>{
+      if(dt.result==1){
+        let i = this.postDatas.indexOf(e)
+        e.info.close_post = data;
+        console.log('index ',i);
+        this.postDatas[i] = e;
+      }
+      else console.log(dt.msg);
+      this.loading = false;
+      })  
   }
 }
 

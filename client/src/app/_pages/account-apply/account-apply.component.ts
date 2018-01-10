@@ -68,7 +68,7 @@ export class AccountApplyComponent implements OnInit {
           p = JSON.parse(JSON.stringify(a));
           this.postDatas[this.postDatas.length] = p;
           this.loading = false;
-          console.log(' postdata '+this.postDatas);
+          // console.log(' postdata '+this.postDatas);
         });
         this.alertService.success('#' + this.postDatas.length);
         if (this.user.apply.length == 0) {
@@ -83,7 +83,9 @@ export class AccountApplyComponent implements OnInit {
     // console.log(val);
     // console.log(val._id+" " + val.removed);
     // this.mApplySocket.remove({ room: this.user._id, data: this.postDatas[val.index] });
+    this.mApplySocket.remove({ room: this.user._id, data: this.postDatas[val.index]});
     this.postDatas.splice(val.index,1);
+    console.log('remove acount apply');    
     this.alertService.success(this.postDatas.length+'');
     if (this.postDatas.length == 0) {
       this.alertService.success('No item');

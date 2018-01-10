@@ -71,7 +71,10 @@ export class HomeComponent implements OnInit {
     })
       .then(data => {
         if (data.result == 1) {
-          this.posts.push(data.data);
+          if (data.data.info.close_post == '0')
+          window.alert('This post has been closed!');
+          else
+            this.posts.push(data.data);
           this.loading = false;
         }
         else this.isPostDetail = true;

@@ -49,7 +49,7 @@ var cons = {
                 });
             });
     },
-    getConversation: (req, res) => {
+    getConversation: (req, res, next) => {
         console.log(req.params);
         Message.find({ conversationId: req.params._id })
             .select('createdAt body author')

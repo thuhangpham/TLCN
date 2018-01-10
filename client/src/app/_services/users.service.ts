@@ -31,13 +31,6 @@ export class UsersService {
       .then(this.extracData)
       .catch(this.handleError);
   }
-  // addUsers(user):Promise<any>{
-  //   console.log('user '+user);
-  //   return this.http.post(`${this.apiUrl}/user`, user)
-  //   .toPromise()
-  //   .then(this.extracData)
-  //   .catch(this.handleError);
-  // }
   addUsers(user: Users) {
     console.log('user ' + user);
     //var u = { "first_name":"Hang" };
@@ -92,6 +85,8 @@ export class UsersService {
           email: data.contact.email
         },
         info: {
+          first_name: data.info.first_name,
+          last_name: data.info.last_name,
           full_name: data.info.first_name + " " + data.info.last_name
         },
         _id: data._id,

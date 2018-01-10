@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, Input,ViewChild } from '@angular/core';
-import { MatIcon} from '@angular/material';
+import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
+import { MatIcon } from '@angular/material';
 import { VerifyService } from '../../_services/verify.service';
 import { PostService } from '../../_services/post.service';
 import { PostData } from '../../_models/post_data';
@@ -24,6 +24,7 @@ export class HomeCenterComponent implements OnInit {
   public apply: any = 0;
   public txtApply: any = 'Apply';
   public isApply: any = false;
+  excute: any = false;
   @Input() post: PostData;
   createAt: any = '';
 
@@ -59,7 +60,6 @@ export class HomeCenterComponent implements OnInit {
           }
         });
 
-
         this.mApplySocket.getUnApplyMessage().subscribe(msg => {
           if (JSON.parse(JSON.stringify(msg)).data._id == this.post._id) {
             console.log('co tin nhan un apply');
@@ -69,10 +69,8 @@ export class HomeCenterComponent implements OnInit {
             this.apply = this.applies.length;
           }
         });
-
       } else {
       }
-      // }else alert.error('');
     }).catch(err => { Promise.reject(err || 'error') });
   }
   readMore() {
@@ -86,37 +84,48 @@ export class HomeCenterComponent implements OnInit {
     }
   }
   addReply() {
-    this.currUser = JSON.parse(localStorage.getItem('currentUser')).user;
-    if (!this.currUser)
+    if (!localStorage.getItem('currentUser'))
       return;
+    this.excute = true;
+    this.currUser = JSON.parse(localStorage.getItem('currentUser')).user;
     let data = {
       user: this.currUser._id,
       _id: this.post._id
     };
     if (!this.isApply) {
-      this.isApply = true;
-      this.postService.addApply(data).subscribe(rs => {
-        console.log(rs);
-        this.applies[this.applies.length] = this.currUser._id;
-        this.apply = this.applies.length;
-        this.txtApply = 'Un Apply';
-        console.log(this.post.owner._id);
-        this.mApplySocket.apply({ room: this.currUser._id, data: this.post });
-      }, err => {
-        if (err)
-          console.log(err || 'apply err');
+      console.log('add apply');
+      this.postService.addApply(data).then(rs => {
+        console.log(rs)
+        if (rs.result == 1) {
+          this.isApply = true;
+          this.applies[this.applies.length] = this.currUser._id;
+          this.apply = this.applies.length;
+          this.txtApply = 'Un Apply';
+          console.log(this.post.owner._id);
+          this.mApplySocket.apply({ room: this.currUser._id, data: this.post });
+        }
+        else window.alert(rs.msg);
+        this.excute = false;
+      }).catch(err => {
+        window.alert(err || 'Error');
+        this.excute = false;
+        console.log(err || 'apply err');
       });
     } else {
-      this.isApply = false;
-      this.postService.unApply(data).subscribe(rs => {
-        console.log(rs);
-        this.applies.splice(this.applies.indexOf(this.currUser._id), 1);
-        this.apply = this.applies.length;
-        this.txtApply = 'Apply';
-        this.mApplySocket.remove({ room:  this.currUser._id, data: this.post });
-      }, err => {
-        if (err)
-          console.log(err || 'un apply err');
+      this.postService.unApply(data).then(rs => {
+        if (rs.result == 1) {
+          this.isApply = false;
+          console.log(rs);
+          this.applies.splice(this.applies.indexOf(this.currUser._id), 1);
+          this.apply = this.applies.length;
+          this.txtApply = 'Apply';
+          this.mApplySocket.remove({ room: this.currUser._id, data: this.post });
+        }
+        else window.alert(rs.msg);
+        this.excute = false;
+      }).catch(err => {
+        this.excute = false;
+        console.log(err || 'un apply err');
       });
     }
   }
@@ -133,27 +142,27 @@ export class HomeCenterComponent implements OnInit {
       }
     }).catch(err => { Promise.reject(err || 'error') });
   }
-  share(){
+  share() {
     // this.fbService.ui({
     //   method: 'share',
     //   href: 'https://developers.facebook.com/docs/',
     // }, function(response){});
- 
+
     let params: UIParams = {
       // action_properties: JSON.stringify({
       //   // object:`${appConfig.WEB_SITE}`,
       //   object:'http://tlcn-mean.herokuapp.com/post_detail/'+this.post._id+''
       // }),
       // method: 'share_open_graph',
-      href :'http://tlcn-mean.herokuapp.com/post_detail/'+this.post._id+'',
+      href: 'http://tlcn-mean.herokuapp.com/post_detail/' + this.post._id + '',
       quote: this.post.info.title + '',
-      hashtag: '#'+this.post.info.areas_expertise.name,
+      hashtag: '#' + this.post.info.areas_expertise.name,
       message: this.post.info.title + '',
-      
+
       method: 'share',
       // action_type: 'og.likes',
     };
-   
+
     this.fbService.ui(params)
       .then((res: UIResponse) => console.log(res))
       .catch((e: any) => console.error(e));

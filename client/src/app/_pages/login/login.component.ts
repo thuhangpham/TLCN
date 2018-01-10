@@ -9,6 +9,7 @@ import { AuthenService } from '../../_services/authen.service';
 import { UsersService } from '../../_services/users.service';
 import { AlertService } from '../../_services/alert.service';
 import { VerifyService } from '../../_services/verify.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -57,6 +58,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         if (data.result === 1) {
           if (data.data || data.token) {
+            
             that.userService.updateLocal(data.data, data.token);
           }
           this.router.navigate(['/home']); 

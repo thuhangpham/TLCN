@@ -13,6 +13,7 @@ class Info {
     address: String = '';
     latitude: String;
     longitude: String;
+    close_post: String = '1';
     constructor() { };
 }
 class Content {
@@ -38,5 +39,6 @@ export class Post {
     updatedAt: Date;
     apply: String[] = [];
     show: boolean;
+   
     constructor() { };
 }

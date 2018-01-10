@@ -16,6 +16,7 @@ class Info {
     longitude: String;
     start: String;
     end: String;
+    close_post: String='1';
     constructor() { };
 }
 class Content {

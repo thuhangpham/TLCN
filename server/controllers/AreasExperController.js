@@ -47,7 +47,7 @@ var areaEx = {
         })
     },
 
-    countPostByAreaEx: (req,res) => {
+    countPostByAreaEx: (req, res) => {
         let results = [];
         AreaEx.find().exec((err, data) => {
             if (err) {
@@ -57,7 +57,11 @@ var areaEx = {
             } else {
                 async.forEachSeries(data, function (item, callback) {
 
-                    Post.count({ 'info.areas_expertise': item._id },
+                    Post.count({
+                        $and: [{ 'info.areas_expertise': item._id },
+                        { 'info.close_post': '1' }
+                    ]
+                    },
                         (err, count) => {
                             console.log(err || count);
                             let data = {
@@ -72,7 +76,7 @@ var areaEx = {
                 }, function (err) {
                     console.log('iterating done');
                     // console.log(results.forEach(e=>{console.log(e);}));
-                    res.json({result:1,msg:'', data: results});
+                    res.json({ result: 1, msg: '', data: results });
                 });
             }
         });

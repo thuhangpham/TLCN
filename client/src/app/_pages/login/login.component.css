@@ -10,9 +10,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 .card {
+    font-size: 14px;
     display: block;
     position: relative;
-    margin: 0 auto 10px auto;
+    margin: 0 auto 5px auto;
     padding: 16px;
     box-sizing: border-box;
     background: white;
